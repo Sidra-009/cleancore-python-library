@@ -1,6 +1,5 @@
-# Mathnexus 
-
-[![PyPI version](https://img.shields.io/pypi/v/geomath-python.svg)](https://pypi.org/project/geomath-python/)
+# MathNexus: A Python Library for Linear Algebra and Geometry
+[![PyPI version](https://img.shields.io/pypi/v/mathnexus.svg)](https://pypi.org/project/mathnexus/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Mathnexus** is a lightweight, zero-dependency Python library designed for developers, students, and researchers who need fast Linear Algebra computations and Physics simulations without the overhead of heavy frameworks. 
@@ -24,4 +23,4 @@ The standout feature is its **High-Resolution Terminal Plotter**, which allows y
 Install the library via pip:
 
 ```bash
-pip install geomath-python
+pip install mathnexus
