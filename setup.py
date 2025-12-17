@@ -5,7 +5,7 @@ setup(
     version="0.2.8",   
     author="Sidra Saqlain",
     author_email="sidrasaqlain11@gmail.com", 
-    description="A professional library for Linear Algebra, 2D Geometry, and Physics Simulations.",
+    description="A library for Linear Algebra, 2D Geometry, and Physics Simulations.",
     long_description=open("README.md", encoding="utf-8").read(), 
     long_description_content_type="text/markdown",
     url="https://github.com/Sidra-009/mathnexus", 
