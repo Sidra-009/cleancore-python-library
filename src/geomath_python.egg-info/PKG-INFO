@@ -1,0 +1,25 @@
+Metadata-Version: 2.4
+Name: geomath-python
+Version: 0.1.2
+Summary: A pure Python library for Linear Algebra and 2D Geometry.
+Author-email: Sidra Saqlain <sidrasaqlain11@gmail.com>
+License: MIT
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+<!-- [System.IO.File]::WriteAllLines("$(Get-Location)\README.md", "This is a library for Linear Algebra and Geometry.") -->
+# Geomath Python
+
+A lightweight, zero-dependency library for Linear Algebra, Coordinate Geometry, and Physics Simulations with **High-Resolution Terminal Visuals**.
+
+## Features
+* **Linear Algebra:** Matrix multiplication and Vector operations.
+* **Physics Engine:** Gravity simulations and kinematic calculations.
+* **Universal Plotter:** Scientific-style terminal graphs that work in VS Code, Colab, and Linux.
+* **SVG Export:** Save your physics shapes as high-quality vector images.
+
+## 🚀 Installation
+```bash
+pip install geomath-python

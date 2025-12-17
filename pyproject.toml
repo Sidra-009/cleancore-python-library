@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geomath-python" 
+version = "0.1.2"
+description = "A pure Python library for Linear Algebra and 2D Geometry."
+readme = "README.md"
+authors = [{name = "Sidra Saqlain", email = "sidrasaqlain11@gmail.com"}]
+license = {text = "MIT"}
+requires-python = ">=3.7"
+
+[tool.setuptools.packages.find]
+where = ["src"]
