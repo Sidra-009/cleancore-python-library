@@ -1,16 +1,17 @@
-[build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "cleancore"
 version = "0.1.0"
 description = "Dependency-free data transformation audit framework"
 authors = [
-    { name = "Sidra", email = "sidrasaqlain11@gmail.com" }
+    { name = "Sidra Bibi", email = "sidrasaqlain11@gmail.com" }
 ]
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.8"
 
 dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/Sidra-009/cleancore"
+Repository = "https://github.com/Sidra-009/cleancore"
+Issues = "https://github.com/Sidra-009/cleancore/issues"
