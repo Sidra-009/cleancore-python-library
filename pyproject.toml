@@ -1,17 +1,21 @@
 [project]
 name = "cleancore"
-version = "0.1.0"
+version = "0.1.1"
 description = "Dependency-free data transformation audit framework"
-authors = [
-    { name = "Sidra Bibi", email = "sidrasaqlain11@gmail.com" }
-]
 readme = "README.md"
-license = { text = "MIT" }
 requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name = "Sidra", email = "sidrasaqlain11@gmail.com" }
+]
 
-dependencies = []
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
 
 [project.urls]
-Homepage = "https://github.com/Sidra-009/cleancore"
-Repository = "https://github.com/Sidra-009/cleancore"
-Issues = "https://github.com/Sidra-009/cleancore/issues"
+Homepage = "https://github.com/Sidra-009/mathnexus"
+Repository = "https://github.com/Sidra-009/mathnexus"
+Issues = "https://github.com/Sidra-009/mathnexus/issues"

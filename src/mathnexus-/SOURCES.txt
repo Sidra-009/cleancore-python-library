@@ -1,0 +1,11 @@
+LICENSE
+README.md
+pyproject.toml
+src/geomath/__init__.py
+src/geomath/coordinate_geometry.py
+src/geomath/linear_datatypes.py
+src/geomath/physics_visuals.py
+src/geomath_python.egg-info/PKG-INFO
+src/geomath_python.egg-info/SOURCES.txt
+src/geomath_python.egg-info/dependency_links.txt
+src/geomath_python.egg-info/top_level.txt

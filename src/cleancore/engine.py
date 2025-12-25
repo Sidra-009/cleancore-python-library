@@ -1,11 +1,14 @@
 from datetime import datetime
-from .audit import AuditEvent
-from .transform import dataframe_hash
+from cleancore.audit import AuditEvent
+from cleancore.transform import dataframe_hash
+
 
 class CleanEngine:
-    def __init__(self, df, id_column="CustomerID"):
+    def __init__(self, df, id_column, age_column="age", salary_column="price"):
         self.df = df
         self.id_column = id_column
+        self.age_column = age_column
+        self.salary_column = salary_column
         self.audit_log = []
         self.audit_id = "AUD20241219001"
 
@@ -15,56 +18,65 @@ class CleanEngine:
         return self.df, self.audit_log
 
     def _impute_missing_age(self):
-        if self.df["Age"].isna().sum() == 0:
+        col = self.age_column
+
+        if col not in self.df.columns:
+            return
+
+        missing_mask = self.df[col].isna()
+        if missing_mask.sum() == 0:
             return
 
         before_hash = dataframe_hash(self.df)
-        median_age = self.df["Age"].median()
+        median_value = self.df[col].median()
 
-        affected = []
-
-        for idx, row in self.df[self.df["Age"].isna()].iterrows():
-            affected.append({
+        affected_rows = []
+        for idx in self.df[missing_mask].index:
+            affected_rows.append({
                 "row_index": int(idx),
-                "customer_id": row[self.id_column],
-                "column": "Age",
+                "record_id": self.df.loc[idx, self.id_column],
                 "before": None,
-                "after": median_age
+                "after": median_value
             })
-            self.df.at[idx, "Age"] = median_age
 
+        self.df.loc[missing_mask, col] = median_value
         after_hash = dataframe_hash(self.df)
 
-        event = AuditEvent(
-            audit_id=self.audit_id,
-            timestamp=datetime.utcnow().isoformat(),
-            transformation="Missing values imputation",
-            problem=f"Age has missing values ({len(affected)} rows)",
-            solution=f"Filled with median ({median_age})",
-            rule_id="GDPR_COMPLIANT_IMPUTATION_v2",
-            affected_rows=affected,
-            before_hash=before_hash,
-            after_hash=after_hash,
-            status="AUTO_FIXED"
+        self.audit_log.append(
+            AuditEvent(
+                audit_id=self.audit_id,
+                timestamp=datetime.utcnow().isoformat(),
+                transformation="Missing values imputation",
+                problem=f"{col} has missing values",
+                solution=f"Filled with median ({median_value})",
+                rule_id="GDPR_COMPLIANT_IMPUTATION_v2",
+                affected_rows=affected_rows,
+                before_hash=before_hash,
+                after_hash=after_hash,
+                status="AUTO_FIXED"
+            )
         )
-
-        self.audit_log.append(event)
 
     def _detect_constant_salary(self):
-        if self.df["Salary"].std() != 0:
+        col = self.salary_column
+
+        if col not in self.df.columns:
             return
 
-        event = AuditEvent(
-            audit_id=self.audit_id,
-            timestamp=datetime.utcnow().isoformat(),
-            transformation="Constant column detection",
-            problem="Salary has zero variance",
-            solution="Flagged for manual review",
-            rule_id="FINANCE_RULE_001",
-            affected_rows=[],
-            before_hash=dataframe_hash(self.df),
-            after_hash=dataframe_hash(self.df),
-            status="PENDING_REVIEW"
-        )
+        if self.df[col].nunique() != 1:
+            return
 
-        self.audit_log.append(event)
+        self.audit_log.append(
+            AuditEvent(
+                audit_id=self.audit_id,
+                timestamp=datetime.utcnow().isoformat(),
+                transformation="Constant column detection",
+                problem=f"{col} has zero variance",
+                solution="Flagged for manual review",
+                rule_id="FINANCE_RULE_001",
+                affected_rows=[],
+                before_hash="",
+                after_hash="",
+                status="PENDING_REVIEW"
+            )
+        )
