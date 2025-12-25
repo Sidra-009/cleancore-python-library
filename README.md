@@ -12,8 +12,13 @@ Unlike data profilers, CleanCore tracks:
 ## Example
 
 ```python
-from cleancore import CleanEngine, print_audit_report
+from cleancore import AuditEngine
+import pandas as pd
 
-engine = CleanEngine(df)
-cleaned_df, audit_log = engine.run()
-print_audit_report(audit_log)
+df = pd.read_csv("Groceries_dataset.csv")
+
+engine = AuditEngine(df)
+cleaned_df, audit = engine.run()
+
+print(cleaned_df.head())
+print(audit)

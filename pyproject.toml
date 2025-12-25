@@ -1,6 +1,6 @@
 [project]
 name = "cleancore"
-version = "0.1.1"
+version = "0.1.2",  
 description = "Dependency-free data transformation audit framework"
 readme = "README.md"
 requires-python = ">=3.8"
