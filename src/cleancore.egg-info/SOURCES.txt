@@ -1,0 +1,15 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+src/cleancore/__init__.py
+src/cleancore/audit.py
+src/cleancore/cli.py
+src/cleancore/engine.py
+src/cleancore/logger.py
+src/cleancore/reporter.py
+src/cleancore/sentinel.py
+src/cleancore.egg-info/PKG-INFO
+src/cleancore.egg-info/SOURCES.txt
+src/cleancore.egg-info/dependency_links.txt
+src/cleancore.egg-info/top_level.txt

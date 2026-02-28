@@ -1,106 +1,54 @@
-# CleanCore Python
+# CleanCore 🔍
 
-A lightweight, dependency-free audit trail system for Python data pipelines.
+**Stop shipping unobserved data.** `cleancore` is a zero-dependency, high-performance tool to inject row-level immutability and audit trails into your Python pipelines. 
 
-CleanCore automatically creates immutable, row-level audit logs for every data transformation. It helps with debugging, compliance, and understanding how your data changes across cleaning steps.
-
----
-
-## Features
-
-- Automatic row-level audit logs
-- Zero external dependencies (pure Python)
-- JSON-based audit output for compliance and record keeping
-- Works with lists, dictionaries, and CSV-style data
-- Simple decorator-based API
+Think of it like **Git for your Data Rows.**
 
 ---
 
-## Installation
+### Why CleanCore?
+Data pipelines often fail silently. `cleancore` automates the "observability" phase by tracking every mutation and flagging schema drifts before they break your production models.
 
+### Key Features
+| Feature | What it does |
+|:---|:---|
+| **Audit Trail** | Decorator that captures row-level changes (Old -> New). |
+| **Schema Sentinel** | Flags type drifts (e.g., `int` -> `str`) and null regressions. |
+| **Big Data Engine** | Chunk-based processing (10k batches) to prevent memory crashes. |
+| **Zero Config** | Works with plain Python Lists, Generators, and Pandas out of the box. |
+
+---
+
+### [+] Installation
 ```bash
-pip install cleancore-python
-Quick Start
-Audit a Single Function
-python
-Copy code
-from cleancore import audit_trail, ProvenaLogger, generate_terminal_report
+pip install cleancore
 
-@audit_trail(rule_id="GDPR_EMAIL_MASKING")
-def clean_emails(data):
-    result = []
+[+] Quick Start
+from cleancore import audit_trail, ProvenaLogger
+
+# 1. Wrap your transformation
+@audit_trail(rule_id="MASK_PII")
+def clean_step(data):
     for row in data:
-        new_row = row.copy()
-        if '@' in new_row.get('email', ''):
-            new_row['email'] = '***@***.***'
-        result.append(new_row)
-    return result
-
-logger = ProvenaLogger("Single_Transformation")
-
-data = [
-    {'id': 1, 'email': 'test@example.com'},
-    {'id': 2, 'email': 'user'}
-]
-
-cleaned = clean_emails(data, provena_logger=logger)
-
-print(generate_terminal_report(logger))
-Pipeline Usage
-python
-Copy code
-from cleancore import audit_pipeline, audit_trail
-import csv
-
-def load_data(path):
-    with open(path) as f:
-        return list(csv.DictReader(f))
-
-@audit_trail(rule_id="STANDARDIZE_NAMES")
-def standardize_names(data):
+        row['email'] = "***@***"
     return data
 
-@audit_trail(rule_id="FILL_MISSING_VALUES")
-def fill_missing(data):
-    return data
+# 2. Run with automated reporting
+with ProvenaLogger("Production_Pipeline") as logger:
+    processed = clean_step(my_data, provena_logger=logger)
 
-with audit_pipeline("Customer_Onboarding_Pipeline") as logger:
-    data = load_data("customers.csv")
-    data = standardize_names(data, provena_logger=logger)
-    data = fill_missing(data, provena_logger=logger)
+# That's it. Professional dashboard prints automatically on exit.
 
-logger.export_json("customer_pipeline_audit.json")
-Output
-CleanCore generates a human-readable terminal report and a machine-readable JSON audit log containing:
+[+] Schema Sentinel (Type Drift)
+CleanCore catches silent killers in your data types:
 
-Transformation name
+[WARN] age: int -> str (Unexpected type swap)
 
-Rule ID
+[WARN] price: float -> NoneType (Null regression)
 
-Rows before and after
+[+] Contributing
+CleanCore is open-source! Want to add a new audit rule or engine optimization?
+Check out our GitHub Repository.
 
-Number of changed rows
-
-Sample value changes
-
-Execution timestamps
-
-API Overview
-audit_trail – Decorator for auditing functions
-
-ProvenaLogger – Collects audit events
-
-audit_pipeline – Context manager for multi-step pipelines
-
-generate_terminal_report() – Prints terminal summary
-
-export_json() – Saves audit log to file
-
-Source Code
-GitHub Repository
-https://github.com/Sidra-009/cleancore-python-library
-
-Issues, feature requests, and pull requests are welcome.
-
-License
-MIT License. See the LICENSE file for details.
+[+] License
+MIT License - see LICENSE for details.

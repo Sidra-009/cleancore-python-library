@@ -1,38 +1,21 @@
 [build-system]
-requires = ["setuptools>=77.0.3", "wheel"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cleancore-python"
-version = "0.1.2"
-authors = [
-  { name = "Sidra Saqlain", email = "sidrasaqlain11@gmail.com" }
-]
-description = "A dependency-free audit trail system for Python data transformations."
+name = "cleancore"
+version = "1.0.0"
+description = "Zero-overhead data observability with row-level immutability"
 readme = "README.md"
-license = { text = "MIT" }
-requires-python = ">=3.7"
-
+authors = [{name = "Sidra Saqlain", email = "sidrasaqlain11@gmail.com"}]
+license = {text = "MIT"}
+requires-python = ">=3.10"
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
-    "Topic :: Software Development :: Libraries",
-    "Topic :: System :: Logging",
 ]
 
-dependencies = []
-
-[project.urls]
-Homepage = "https://github.com/Sidra-009/cleancore-python-library"
-Source = "https://github.com/Sidra-009/cleancore-python-library"
-Issues = "https://github.com/Sidra-009/cleancore-python-library/issues"
-
-[tool.setuptools]
-packages = ["provena"]
-package-dir = { "" = "src" }
-
-[project.scripts]
-cleancore = "provena.cli:main"
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["cleancore*"]

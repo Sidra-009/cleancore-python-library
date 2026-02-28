@@ -1,21 +1,14 @@
 Metadata-Version: 2.4
-Name: cleancore-python
-Version: 0.1.1
-Summary: A dependency-free audit trail system for Python data transformations.
+Name: cleancore
+Version: 1.0.0
+Summary: Zero-overhead data observability with row-level immutability
 Home-page: https://github.com/yourusername/provena
 Author: Your Name
 Author-email: Sidra Saqlain <sidrasaqlain11@gmail.com>
 License: MIT
-Project-URL: Homepage, https://github.com/Sidra-009/cleancore-python-library
-Project-URL: Source, https://github.com/Sidra-009/cleancore-python-library
-Project-URL: Issues, https://github.com/Sidra-009/cleancore-python-library/issues
-Classifier: Development Status :: 3 - Alpha
-Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
-Classifier: Programming Language :: Python :: 3
-Classifier: Topic :: Software Development :: Libraries
-Classifier: Topic :: System :: Logging
 Requires-Python: >=3.7
 Description-Content-Type: text/markdown
 License-File: LICENSE
