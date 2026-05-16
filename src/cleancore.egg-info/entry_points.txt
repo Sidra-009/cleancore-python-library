@@ -1,0 +1,2 @@
+[console_scripts]
+cleancore = cleancore.cli:main

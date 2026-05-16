@@ -1,0 +1,57 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:   # allow manual trigger from GitHub UI
+
+permissions:
+  contents: read
+  id-token: write   # required for PyPI Trusted Publishing (no API token needed)
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package in editable mode
+        run: pip install -e .
+
+      - name: Run tests
+        run: python -m pytest tests/ -v --tb=short
+
+  publish:
+    name: Build & publish to PyPI
+    needs: test
+    runs-on: ubuntu-latest
+    environment: pypi   # configure this env in GitHub repo Settings -> Environments
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install build tools
+        run: pip install --upgrade pip build
+
+      - name: Build distribution
+        run: python -m build
+
+      - name: Publish to PyPI (Trusted Publishing)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        # No TWINE_PASSWORD or API token needed when using Trusted Publishing!
+        # Set up at: https://pypi.org/manage/project/cleancore/settings/publishing/
